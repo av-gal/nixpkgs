@@ -13320,9 +13320,13 @@ with pkgs;
       }
     );
 
-  winePackages = recurseIntoAttrs (winePackagesFor (config.wine.build or "wine32"));
+  winePackages =
+    lib.warn "winePackages is deprecated. Please use 'wine64Packages' or 'wineWow64Packages' instead."
+      (recurseIntoAttrs (winePackagesFor (config.wine.build or "wine32")));
   wine64Packages = recurseIntoAttrs (winePackagesFor "wine64");
-  wineWowPackages = recurseIntoAttrs (winePackagesFor "wineWow");
+  wineWowPackages = lib.warn "wineWowPackages is deprecated. Please use 'wine64Packages' or 'wineWow64Packages' instead." (
+    recurseIntoAttrs (winePackagesFor "wineWow")
+  );
   wineWow64Packages = recurseIntoAttrs (winePackagesFor "wineWow64");
 
   wine = winePackages.full;
