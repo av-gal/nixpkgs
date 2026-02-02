@@ -1872,7 +1872,14 @@ mapAliases {
   wifi-password = throw "'wifi-password' has been removed as it was unmaintained upstream"; # Added 2025-08-29
   win-pvdrivers = throw "'win-pvdrivers' has been removed as it was subject to the Xen build machine compromise (XSN-01) and has open security vulnerabilities (XSA-468)"; # Added 2025-08-29
   win-virtio = throw "'win-virtio' has been renamed to/replaced by 'virtio-win'"; # Converted to throw 2025-10-27
+  wine = winePackages.full;
   wineWayland = throw "'wineWayland' has been renamed to/replaced by 'wine-wayland'"; # Converted to throw 2025-10-27
+  winePackages =
+    lib.warn "winePackages is deprecated. Please use 'wine64Packages' or 'wineWow64Packages' instead."
+      (recurseIntoAttrs (winePackagesFor (config.wine.build or "wine32")));
+  wineWowPackages = lib.warn "wineWowPackages is deprecated. Please use 'wine64Packages' or 'wineWow64Packages' instead." (
+    recurseIntoAttrs (winePackagesFor "wineWow")
+  );
   wingpanel-indicator-ayatana = throw "'wingpanel-indicator-ayatana' has been removed as it is archived upstream and doesn't work with pantheon 8 and onwards. Use wingpanel-indicator-namarupa instead"; # Added 2026-01-14
   winhelpcgi = throw "'winhelpcgi' has been removed as it was unmaintained upstream and broken with GCC 14"; # Added 2025-06-14
   wireshark-qt = warnAlias "'wireshark-qt' has been renamed to/replaced by 'wireshark'" wireshark; # Added 2026-01-23
