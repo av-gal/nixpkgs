@@ -2,7 +2,7 @@
   lib,
   multiStdenv,
   fetchFromGitHub,
-  wine,
+  wine64,
   cmake,
   makeWrapper,
   file,
@@ -21,7 +21,7 @@ let
     sha256 = "1ban59skw422mak3cp57lj27hgq5d3a4f6y79ysjnamf8rpz9x4s";
   };
 
-  wine-wow64 = wine.override {
+  wine-wow64 = wine64.override {
     wineRelease = "stable";
     wineBuild = "wineWow";
   };
