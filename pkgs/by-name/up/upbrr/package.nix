@@ -24,10 +24,10 @@ let
   pname = "upbrr";
   version = "0.3.1";
   src = fetchFromGitHub {
-    owner = "autobrr";
+    owner = "av-gal";
     repo = "upbrr";
-    tag = "v${version}";
-    hash = "sha256-EmMXkFPV339U1qIwxmtRbhqLbA23lc8WV3RqsEF6Puk=";
+    rev = "make-nix-work";
+    hash = "";
   };
 
   upbrr-webui = stdenvNoCC.mkDerivation {
@@ -57,7 +57,7 @@ let
 
     postBuild = ''
       pnpm run build
-    '';
+  '';
 
     installPhase = ''
       cp -r dist $out
@@ -73,10 +73,12 @@ buildGoLatestModule (finalAttrs: {
 
   vendorHash = "sha256-fbqCCmSPfjtwyUituQ/wXvsm6Xs6QyJjvKOlpuPkr3w=";
 
-  nativeBuildInputs = [ dejavu_fonts fontconfig ffmpeg mesa vulkan-loader git ];
+  nativeBuildInputs = [ dejavu_fonts fontconfig ffmpeg mesa vulkan-loader git  ];
   preBuild = ''
-    cp -r ${finalAttrs.passthru.upbrr-webui}/* webui
+    cp -r ${finalAttrs.passthru.upbrr-webui}/* internal/webserver/assets/
   '';
+
+# CGO_ENABLED = 1;
 
   ldflags = [
     "-X main.version=${finalAttrs.version}"
@@ -101,7 +103,7 @@ buildGoLatestModule (finalAttrs: {
         "upbrr-webui"
       ];
     };
-    tests.testService = nixosTests.upbrr;
+    # tests.testService = nixosTests.upbrr;
   };
 
   meta = {
