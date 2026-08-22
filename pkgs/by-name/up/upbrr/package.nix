@@ -82,7 +82,7 @@ buildGoLatestModule (finalAttrs: {
 
   ldflags = [
     "-X main.version=${finalAttrs.version}"
-    "-X main.commit=${src.tag}"
+    # "-X main.commit=${src.tag}"
   ];
 
   # Let's just smoke test it
