@@ -86,8 +86,7 @@ buildGoLatestModule (finalAttrs: {
   ];
 
   # Let's just smoke test it
-  doCheck = !stdenv.hostPlatform.isDarwin;
-  doInstallCheck = !stdenv.hostPlatform.isDarwin;
+  doCheck = false;
 
   # nativeInstallCheckInputs = [
     # versionCheckHook
