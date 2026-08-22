@@ -24,10 +24,10 @@ let
   pname = "upbrr";
   version = "0.3.1";
   src = fetchFromGitHub {
-    owner = "av-gal";
+    owner = "autobrr";
     repo = "upbrr";
-    rev = "make-nix-work";
-    hash = "";
+    tag = "v${version}";
+    hash = "sha256-EmMXkFPV339U1qIwxmtRbhqLbA23lc8WV3RqsEF6Puk=";
   };
 
   upbrr-webui = stdenvNoCC.mkDerivation {
@@ -85,7 +85,7 @@ buildGoLatestModule (finalAttrs: {
     "-X main.commit=${src.tag}"
   ];
 
-  # In darwin, tests try to access /etc/protocols, which is not permitted.
+  # Let's just smoke test it
   doCheck = !stdenv.hostPlatform.isDarwin;
   doInstallCheck = !stdenv.hostPlatform.isDarwin;
 
